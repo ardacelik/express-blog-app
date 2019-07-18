@@ -5,5 +5,9 @@ extends layout.pug
 block content
   section#content
     h2= prompt
+    form(action='/blog', method="post")
+      textarea(name="blog-content", cols="30", rows="10")
+      br
+      button(type="submit") Submit
     p
       i Hint: #{hint}

@@ -1,11 +1,7 @@
-doctype html
-html(lang='en')
-  head
-    title Your Favourite Blog
-  body
-    header
-      h1 /B/L/O/G/
-    section#content
-      h2 Welcome
-    footer 
-     p An app to share mind with the world
+//- Extend the layout
+extends layout.pug 
+
+//- Inject the content
+block content
+  section#content
+    h2 Welcome

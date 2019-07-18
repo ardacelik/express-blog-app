@@ -1,6 +1,8 @@
 const express = require("express");
 
-const app = express(); // Create an express app
+const app = express(); // Create an express app\
+
+app.set("view engine", "pug"); // Set the view engine to Pug
 
 app.get("/", (req, res) => {
   res.send("<h1>Hello</h1>");

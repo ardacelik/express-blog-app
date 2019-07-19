@@ -1,28 +1,39 @@
 const express = require("express");
 const bodyParser = require("body-parser");
-const cookieParser = require("cookie-parser");
-
 const app = express(); // Create an express app
 
+// Parse incoming requests
+app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
-app.set("view engine", "pug"); // Set the view engine to Pug
+// Serve statis files from /public
+app.use(express.static(__dirname + "/public"));
 
-app.get("/", (req, res) => {
-  res.render("index");
+// View engine setup (Pug)
+app.set("view engine", "pug");
+app.set("views", __dirname + "/views");
+
+// Include routes
+const routes = require("./routes/index");
+app.use("/", routes);
+
+// Catch 404 and forward to error handler
+app.use((req, res, next) => {
+  const err = new Error("File Not Found");
+  err.status = 404;
+  next(err);
 });
 
-app.get("/blog", (req, res) => {
-  res.render("blog", {
-    prompt: "dear user",
-    hint: "Do not overthink it, just start writing :)"
+// Error handler
+app.use((err, req, res, next) => {
+  res.status(err.status || 500);
+  res.render("error", {
+    message: err.message,
+    error: {}
   });
 });
 
-app.post("/blog", (req, res) => {
-  res.render("blog");
-});
-
+// Listen on port 3000
 app.listen(3000, () => {
   console.log("The application is running on localhost:3000!");
-}); // Set up the development server
+});

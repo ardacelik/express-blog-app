@@ -1,8 +1,24 @@
-doctype html
-html(lang='en')
-  head
-    title Your Favourite Blog
+doctype html(lang='en')
+head
+  meta(charset='utf-8')
+  meta(name='viewport', content='width=device-width, initial-scale=1, shrink-to-fit=no')
+  meta(http-equiv='x-ua-compatible', content='ie=edge')
+  title MyBlogApp | #{title}
+  link(rel='stylesheet', href='https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css', integrity='sha384-y3tfxAZXuh4HwSYylfB+J125MxIs6mR5FOHamPBG064zB+AFeWH94NdvaCBm8qnd', crossorigin='anonymous')
+  link(href='https://fonts.googleapis.com/icon?family=Material+Icons', rel='stylesheet')
+  link(rel='stylesheet', href='/stylesheets/style.css')
+
   body
-    include includes/header.pug
-    block content
-    include includes/footer.pug
+    .container
+      //- Load navbar
+      include navbar
+
+      //- Content block
+      block content
+
+      //- Footer
+      p.foot.text-xs-center A Simple Blogging App
+
+  script(src="https://code.jquery.com/jquery-3.3.1.slim.min.js")
+  script(src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js")
+  script(src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js")

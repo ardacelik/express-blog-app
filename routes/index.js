@@ -2,6 +2,51 @@ const express = require("express");
 const router = express.Router();
 const User = require("../models/user");
 
+// GET /profile
+router.get("/profile", (req, res, body) => {
+  if (!req.session.userId) {
+    const err = new Error("You are not authorized to view this page");
+    err.status = 403;
+    return next(err);
+  }
+  User.findById(req.session.userId).exec(function(error, user) {
+    if (error) {
+      return next(error);
+    } else {
+      return res.render("profile", {
+        title: "Profile",
+        name: user.name,
+        favorite: user.favoriteBook
+      });
+    }
+  });
+});
+
+// GET /login
+router.get("/login", (req, res, next) => {
+  return res.render("login", { title: "Log In" });
+});
+
+// POST /login
+router.post("/login", (req, res, next) => {
+  if (req.body.email && req.body.password) {
+    User.authenticate(req.body.email, req.body.password, function(error, user) {
+      if (error || !user) {
+        const err = new Error("Wrong email or password.");
+        err.status = 401;
+        return next(err);
+      } else {
+        req.session.userId = user._id;
+        return res.redirect("/profile");
+      }
+    });
+  } else {
+    const err = new Error("Email and password are required");
+    err.status = 401;
+    return next(err);
+  }
+});
+
 // GET /register
 router.get("/register", (req, res, next) => {
   return res.render("register", { title: "Sign Up" });
@@ -34,6 +79,7 @@ router.post("/register", (req, res, next) => {
       if (error) {
         return next(error);
       } else {
+        req.session.userId = user._id;
         return res.redirect("/profile");
       }
     });

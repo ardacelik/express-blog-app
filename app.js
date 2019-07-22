@@ -1,13 +1,9 @@
 const express = require("express");
 const bodyParser = require("body-parser");
-const mongoose = require("mongoose");
+const connectDB = require("./config/db");
 const app = express(); // Create an express app
 
-// MongoDB connetion
-mongoose.connect("mongodb://localhost:27017/myblogapp");
-const db = mongoose.connection;
-// Mongo error
-db.on("error", console.error.bind(console, "connection error:"));
+connectDB(); // MongoDB connetion
 
 // Parse incoming requests
 app.use(bodyParser.json());

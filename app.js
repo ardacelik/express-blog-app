@@ -1,7 +1,18 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const connectDB = require("./config/db");
+const session = require("express-session");
+
 const app = express(); // Create an express app
+
+// Use sessions for tracking logins
+app.use(
+  session({
+    secret: "Secret",
+    resave: true,
+    saveUninitialized: false
+  })
+);
 
 connectDB(); // MongoDB connetion
 

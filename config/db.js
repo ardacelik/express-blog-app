@@ -5,16 +5,15 @@ const db = config.get("mongoURI");
 const connectDB = async () => {
   try {
     await mongoose.connect(db, {
-      // The next three lines are required to avoid a warning message on the console
+      // The next three lines removes a warning message from the console
       useNewUrlParser: true,
       useCreateIndex: true,
       useFindAndModify: false
     });
-
     console.log("MongoDB Connected");
   } catch (err) {
     console.error(err.message);
-    process.exit(1);
+    process.exit(1); // Exit process with failure
   }
 };
 

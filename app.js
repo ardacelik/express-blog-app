@@ -15,7 +15,7 @@ app.get("/", (req, res) => {
 
 // Define routes
 app.use("/api/users", require("./routes/api/users"));
-// app.use("/api/auth", require("./routes/api/auth"));
+app.use("/api/auth", require("./routes/api/auth"));
 // @todo - Add route for blog posts
 // @todo - Add route for profiles
 

@@ -1,0 +1,65 @@
+import React, { Fragment, useState } from "react";
+import { Link } from "react-router-dom";
+
+const Login = () => {
+  const [formData, setFormData] = useState({
+    email: "",
+    password: ""
+  });
+
+  const { email, password } = formData;
+
+  const onChange = e =>
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+
+  const onSubmit = async e => {
+    e.preventDefault();
+
+    console.log("Success");
+  };
+
+  return (
+    <Fragment>
+      <section className="container">
+        <h1 className="large text-primary">Sign In</h1>
+        <p className="lead">
+          <i className="fas fa-user" /> Sign Into Your Account
+        </p>
+        <form onSubmit={e => onSubmit(e)}>
+          <div className="form-group">
+            <input
+              type="email"
+              className="form-control"
+              placeholder="Email Address"
+              name="email"
+              value={email}
+              onChange={e => onChange(e)}
+              required
+            />
+          </div>
+          <div className="form-group">
+            <input
+              type="password"
+              className="form-control"
+              id="exampleInputPassword1"
+              placeholder="Password"
+              name="password"
+              value={password}
+              onChange={e => onChange(e)}
+              minLength="6"
+            />
+          </div>
+
+          <button type="submit" className="btn btn-primary">
+            Login
+          </button>
+        </form>
+        <p className="my-1">
+          Don't have an account? <Link to="/register">Sign Up</Link>
+        </p>
+      </section>
+    </Fragment>
+  );
+};
+
+export default Login;

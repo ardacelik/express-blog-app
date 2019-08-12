@@ -9,6 +9,11 @@ const Navbar = ({ auth: { isAuthenticated, loading }, logout }) => {
     <div className="collapse navbar-collapse" id="navbarsExampleDefault">
       <ul className="navbar-nav mr-auto">
         <li>
+          <Link className="nav-link" to="/posts">
+            Posts
+          </Link>
+        </li>
+        <li>
           <a className="nav-link" onClick={logout} href="#!">
             <i className="fas fa-sign-out-alt" /> Logout
           </a>
